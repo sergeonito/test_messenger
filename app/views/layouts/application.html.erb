@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SimpleMessagesApp</title>
+  <%= stylesheet_link_tag 'application', media: 'all' %>
+  <%= javascript_include_tag 'application' %>
+  <%= csrf_meta_tags %>
+  <%= action_cable_meta_tag %>
+</head>
+<body>
+<!--Navigation-->
+<div class="ui grid">
+  <div class="row">
+    <div class="fourteen wide centered column">
+      <h2 class="ui header">
+        <i class="mail icon"></i>
+        <div class="content">
+          Messenger
+        </div>
+      </h2>
+      <div class="ui blue inverted menu">
+        <i class="home icon"></i><%= link_to "Home", root_path, class: "item" %>
+        <% if current_user %>
+            <div class="right menu">
+              <%= link_to current_user.full_name, '#', class: "item" %>
+              <%= link_to 'Sign Out', signout_path, class: "item" %>
+            </div>
+        <% else %>
+            <div class="right menu">
+              <%= link_to 'Sign Up', signup_path, class: "item" %>
+              <%= link_to "Sign-In", signin_path, class: "item" %>
+            </div>
+        <% end %>
+      </div>
+      <!--End Navigation-->
+      <!--Main-->
+      <div class="ui two column stackable grid container">
+        <div class="large screen only eleven wide column">
+          <%= yield %>
+        </div>
+        <%= render 'layouts/users_panel' %>
+      </div>
+      <!--End Main-->
+    </div>
+  </div>
+</div>
+</body>
+</html>

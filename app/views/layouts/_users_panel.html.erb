@@ -1,0 +1,24 @@
+<% if current_user %>
+    <div class="large screen only five wide column">
+      <div class="ui segment">
+        <h3>All Users</h3>
+        <div class="ui list">
+          <% @users.each do |user| %>
+              <% if current_user && user.id != current_user.id %>
+                  <div class="item" user_id="<%= user.id %>">
+                    <%= link_to user.full_name, conversations_path(sender_id: current_user.id, recipient_id: user.id),
+                                method: 'post' %>
+                    <div class="ui label">
+                      <i class="mail icon"></i>
+                      <span class="counter"></span>
+                    </div>
+                    <!--Popup messages-->
+                    <div class="message_popup ui left pointing blue basic label" style="display:none"></div>
+                  </div>
+
+              <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+<% end %>
